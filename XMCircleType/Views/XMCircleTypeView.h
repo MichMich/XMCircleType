@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface XMCircleView : UIView
+@interface XMCircleTypeView : UIView
 
 @property (strong, nonatomic) NSString *text;
 @property (strong, nonatomic) NSDictionary *textAttributes;

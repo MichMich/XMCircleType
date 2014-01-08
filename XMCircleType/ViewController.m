@@ -7,10 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "XMCircleView.h"
+#import "XMCircleTypeView.h"
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet XMCircleView *circleView;
+@property (weak, nonatomic) IBOutlet XMCircleTypeView *circleView;
 @end
 
 @implementation ViewController

@@ -4,7 +4,7 @@
 
 ## What is it?
 
-`XMCircleType` is a UIView that allows you to display an NSString as a cicular text. Is will take font kerning into account, so no weird spacings.
+`XMCircleTypeView` is a UIView that allows you to display an NSString as a cicular text. Is will take font kerning into account, so no weird spacings.
 
 ## So what does it look like?
 
@@ -15,7 +15,7 @@
 
 ## Usage
 
-Just add a `XMCircleView` to your view, and set the desired options.
+Just add a `XMCircleTypeView` to your view, and set the desired options.
 Please take a look at the example for more info.
 
 ## Disclaimer

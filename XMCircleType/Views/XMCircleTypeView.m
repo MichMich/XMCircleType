@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Michael Teeuw. All rights reserved.
 //
 
-#import "XMCircleView.h"
+#import "XMCircleTypeView.h"
 
-@interface XMCircleView ()
+@interface XMCircleTypeView ()
 
 @property (nonatomic) CGPoint circleCenterPoint;
 
 @end
 
-@implementation XMCircleView
+@implementation XMCircleTypeView
 
 #define VISUAL_DEBUGGING NO
 
