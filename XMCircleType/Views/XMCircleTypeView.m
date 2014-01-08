@@ -1,5 +1,5 @@
 //
-//  XMCircleView.m
+//  XMCircleTypeView.m
 //  XMCircleType
 //
 //  Created by Michael Teeuw on 07-01-14.
