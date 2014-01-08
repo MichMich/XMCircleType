@@ -18,31 +18,10 @@
 
 #define VISUAL_DEBUGGING NO
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setDefaults];
-    }
-    return self;
-}
-
-- (void)awakeFromNib
-{
-    [self setDefaults];
-}
-
 - (void)layoutSubviews
 {
     self.circleCenterPoint = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     [self setNeedsDisplay];
-}
-
-- (void) setDefaults
-{
-    self.radius = (self.bounds.size.width <= self.bounds.size.height) ? self.bounds.size.width / 3 : self.bounds.size.height / 3;
-    self.baseAngle = 270 * M_PI / 180;
-    self.characterSpacing = 0.85;
 }
 
 - (float) kerningForCharacter:(NSString *)currentCharacter afterCharacter:(NSString *)previousCharacter
@@ -56,14 +35,21 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    //Calculate the angle per charater.
+    //Get the string size.
     CGSize stringSize = [self.text sizeWithAttributes:self.textAttributes];
 
+    //If the radius not set, calculate the maximum radius.
+    if (self.radius <=0) {
+        self.radius = (self.bounds.size.width <= self.bounds.size.height) ? self.bounds.size.width / 2 - stringSize.height: self.bounds.size.height / 2 - stringSize.height;
+    }
+    
+    //Calculate the angle per charater.
+    self.characterSpacing = (self.characterSpacing > 0) ? self.characterSpacing : 1;
     float circumference = 2 * self.radius * M_PI;
     float anglePerPixel = M_PI * 2 / circumference * self.characterSpacing;
-    float startAngle;
     
     //Set initial angle.
+    float startAngle;
     if (self.textAlignment == NSTextAlignmentRight) {
         startAngle = self.baseAngle - (stringSize.width * anglePerPixel);
     } else if(self.textAlignment == NSTextAlignmentLeft) {
