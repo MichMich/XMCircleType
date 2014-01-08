@@ -21,6 +21,7 @@
 		4C00B663187C5C040042042A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00B645187C5C040042042A /* UIKit.framework */; };
 		4C00B66B187C5C040042042A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C00B669187C5C040042042A /* InfoPlist.strings */; };
 		4C00B66D187C5C040042042A /* XMCircleTypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00B66C187C5C040042042A /* XMCircleTypeTests.m */; };
+		4C00B679187C5C340042042A /* XMCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00B678187C5C340042042A /* XMCircleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		4C00B668187C5C040042042A /* XMCircleTypeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XMCircleTypeTests-Info.plist"; sourceTree = "<group>"; };
 		4C00B66A187C5C040042042A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C00B66C187C5C040042042A /* XMCircleTypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMCircleTypeTests.m; sourceTree = "<group>"; };
+		4C00B677187C5C340042042A /* XMCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMCircleView.h; path = Views/XMCircleView.h; sourceTree = "<group>"; };
+		4C00B678187C5C340042042A /* XMCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMCircleView.m; path = Views/XMCircleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,7 @@
 		4C00B647187C5C040042042A /* XMCircleType */ = {
 			isa = PBXGroup;
 			children = (
+				4C00B676187C5C150042042A /* Views */,
 				4C00B650187C5C040042042A /* AppDelegate.h */,
 				4C00B651187C5C040042042A /* AppDelegate.m */,
 				4C00B653187C5C040042042A /* Main.storyboard */,
@@ -150,6 +154,15 @@
 				4C00B669187C5C040042042A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C00B676187C5C150042042A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C00B677187C5C340042042A /* XMCircleView.h */,
+				4C00B678187C5C340042042A /* XMCircleView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +265,7 @@
 				4C00B658187C5C040042042A /* ViewController.m in Sources */,
 				4C00B652187C5C040042042A /* AppDelegate.m in Sources */,
 				4C00B64E187C5C040042042A /* main.m in Sources */,
+				4C00B679187C5C340042042A /* XMCircleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

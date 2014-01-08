@@ -7,9 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "XMCircleView.h"
 
 @interface ViewController ()
-
+@property (weak, nonatomic) IBOutlet XMCircleView *circleView;
 @end
 
 @implementation ViewController
@@ -17,13 +18,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    self.circleView.text = @"XMCircelView allows you to display a circled text. It will take kerning into account.";
+    self.circleView.textAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:10]};
+    self.circleView.textAlignment = NSTextAlignmentCenter;
+    self.circleView.radius = 100;
 }
 
 @end
