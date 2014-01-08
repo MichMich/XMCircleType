@@ -97,12 +97,12 @@
         //Draw the character
         [currentCharacter drawAtPoint:stringPoint withAttributes:self.textAttributes];
         
-        //If we need some viaual debugging, draw the visuals.
+        //If we need some visual debugging, draw the visuals.
         if (VISUAL_DEBUGGING) {
+            //Show Character BoundingBox
             [[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5] setStroke];
             [[UIBezierPath bezierPathWithRect:CGRectMake(stringPoint.x, stringPoint.y, stringSize.width, stringSize.height)] stroke];
 
-            
             //Show character point
             [[UIColor blueColor] setStroke];
             [[UIBezierPath bezierPathWithArcCenter:characterPoint radius:1 startAngle:0 endAngle:2*M_PI clockwise:YES] stroke];
@@ -118,7 +118,7 @@
         lastCharacter = currentCharacter;
     }
      
-    //If we need some viaual debugging, draw the circle.
+    //If we need some visual debugging, draw the circle.
     if (VISUAL_DEBUGGING) {
         //Show Circle
         [[UIColor greenColor] setStroke];
