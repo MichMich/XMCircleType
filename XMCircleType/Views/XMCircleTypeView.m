@@ -37,15 +37,13 @@
 {
     //Get the string size.
     CGSize stringSize = [self.text sizeWithAttributes:self.textAttributes];
-
+    
     //If the radius not set, calculate the maximum radius.
-    if (self.radius <=0) {
-        self.radius = (self.bounds.size.width <= self.bounds.size.height) ? self.bounds.size.width / 2 - stringSize.height: self.bounds.size.height / 2 - stringSize.height;
-    }
+    float radius = (self.radius <=0) ? (self.bounds.size.width <= self.bounds.size.height) ? self.bounds.size.width / 2 - stringSize.height: self.bounds.size.height / 2 - stringSize.height : self.radius;
     
     //Calculate the angle per charater.
     self.characterSpacing = (self.characterSpacing > 0) ? self.characterSpacing : 1;
-    float circumference = 2 * self.radius * M_PI;
+    float circumference = 2 * radius * M_PI;
     float anglePerPixel = M_PI * 2 / circumference * self.characterSpacing;
     
     //Set initial angle.
@@ -74,7 +72,7 @@
         //Set currenct character size & kerning.
         CGSize stringSize = [currentCharacter sizeWithAttributes:self.textAttributes];
         float kerning = (lastCharacter) ? [self kerningForCharacter:currentCharacter afterCharacter:lastCharacter] : 0;
-
+        
         //Add half of character width to characterPosition, substract kerning.
         characterPosition += (stringSize.width / 2) - kerning;
         
@@ -82,8 +80,8 @@
         float angle = characterPosition * anglePerPixel + startAngle;
         
         //Calculate character drawing point.
-        CGPoint characterPoint = CGPointMake(self.radius * cos(angle) + self.circleCenterPoint.x, self.radius * sin(angle) + self.circleCenterPoint.y);
-
+        CGPoint characterPoint = CGPointMake(radius * cos(angle) + self.circleCenterPoint.x, radius * sin(angle) + self.circleCenterPoint.y);
+        
         //Strings are always drawn from top left. Calculate the right pos to draw it on bottom center.
         CGPoint stringPoint = CGPointMake(characterPoint.x -stringSize.width/2 , characterPoint.y - stringSize.height);
         
@@ -102,7 +100,7 @@
             //Show Character BoundingBox
             [[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5] setStroke];
             [[UIBezierPath bezierPathWithRect:CGRectMake(stringPoint.x, stringPoint.y, stringSize.width, stringSize.height)] stroke];
-
+            
             //Show character point
             [[UIColor blueColor] setStroke];
             [[UIBezierPath bezierPathWithArcCenter:characterPoint radius:1 startAngle:0 endAngle:2*M_PI clockwise:YES] stroke];
@@ -117,21 +115,20 @@
         //store the currentCharacter to use in the next run for kerning calculation.
         lastCharacter = currentCharacter;
     }
-     
+    
     //If we need some visual debugging, draw the circle.
     if (VISUAL_DEBUGGING) {
         //Show Circle
         [[UIColor greenColor] setStroke];
-        [[UIBezierPath bezierPathWithArcCenter:self.circleCenterPoint radius:self.radius startAngle:0 endAngle:2*M_PI clockwise:YES] stroke];
+        [[UIBezierPath bezierPathWithArcCenter:self.circleCenterPoint radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES] stroke];
         
         UIBezierPath *line = [UIBezierPath bezierPath];
-        [line moveToPoint:CGPointMake(self.circleCenterPoint.x, self.circleCenterPoint.y - self.radius)];
-        [line addLineToPoint:CGPointMake(self.circleCenterPoint.x, self.circleCenterPoint.y + self.radius)];
-        [line moveToPoint:CGPointMake(self.circleCenterPoint.x-self.radius, self.circleCenterPoint.y)];
-        [line addLineToPoint:CGPointMake(self.circleCenterPoint.x+self.radius, self.circleCenterPoint.y)];
+        [line moveToPoint:CGPointMake(self.circleCenterPoint.x, self.circleCenterPoint.y - radius)];
+        [line addLineToPoint:CGPointMake(self.circleCenterPoint.x, self.circleCenterPoint.y + radius)];
+        [line moveToPoint:CGPointMake(self.circleCenterPoint.x-radius, self.circleCenterPoint.y)];
+        [line addLineToPoint:CGPointMake(self.circleCenterPoint.x+radius, self.circleCenterPoint.y)];
         [line stroke];
     }
-
 }
 
 #pragma mark Getters & Setters
