@@ -10,13 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "XMCircleType/Views/XMCircleTypeView.m"
-            timestampString = "410896372.997578"
+            timestampString = "411391877.134825"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "@implementation XMCircleTypeView"
-            landmarkType = "3">
+            startingLineNumber = "178"
+            endingLineNumber = "178">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

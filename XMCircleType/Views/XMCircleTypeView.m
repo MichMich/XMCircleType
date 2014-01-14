@@ -112,6 +112,9 @@
         //Add the other half of the character size to the character position.
         characterPosition += stringSize.width / 2;
         
+        //Stop if we've reached one full circle.
+        if (characterPosition * anglePerPixel >= M_PI*2) break;
+        
         //store the currentCharacter to use in the next run for kerning calculation.
         lastCharacter = currentCharacter;
     }
