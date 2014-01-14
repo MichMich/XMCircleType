@@ -23,9 +23,8 @@
     self.circleView.textAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:10]};
     self.circleView.textAlignment = NSTextAlignmentCenter;
     self.circleView.baseAngle = 270 * M_PI / 180;
-    self.circleView.characterSpacing = 0.85;
-
-    //self.circleView.radius = 100;
+//    self.circleView.characterSpacing = 0.85;
+//    self.circleView.radius = 100;
 }
 
 @end

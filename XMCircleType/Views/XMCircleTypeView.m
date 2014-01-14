@@ -76,44 +76,46 @@
         //Add half of character width to characterPosition, substract kerning.
         characterPosition += (stringSize.width / 2) - kerning;
         
-        //Calculate character Angle
-        float angle = characterPosition * anglePerPixel + startAngle;
-        
-        //Calculate character drawing point.
-        CGPoint characterPoint = CGPointMake(radius * cos(angle) + self.circleCenterPoint.x, radius * sin(angle) + self.circleCenterPoint.y);
-        
-        //Strings are always drawn from top left. Calculate the right pos to draw it on bottom center.
-        CGPoint stringPoint = CGPointMake(characterPoint.x -stringSize.width/2 , characterPoint.y - stringSize.height);
-        
-        //Save the current context and do the character rotation magic.
-        CGContextSaveGState(context);
-        CGContextTranslateCTM(context, characterPoint.x, characterPoint.y);
-        CGAffineTransform textTransform = CGAffineTransformMakeRotation(angle + M_PI_2);
-        CGContextConcatCTM(context, textTransform);
-        CGContextTranslateCTM(context, -characterPoint.x, -characterPoint.y);
-        
-        //Draw the character
-        [currentCharacter drawAtPoint:stringPoint withAttributes:self.textAttributes];
-        
-        //If we need some visual debugging, draw the visuals.
-        if (VISUAL_DEBUGGING) {
-            //Show Character BoundingBox
-            [[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5] setStroke];
-            [[UIBezierPath bezierPathWithRect:CGRectMake(stringPoint.x, stringPoint.y, stringSize.width, stringSize.height)] stroke];
+        if (characterPosition < circumference) {
+            //Calculate character Angle
+            float angle = characterPosition * anglePerPixel + startAngle;
             
-            //Show character point
-            [[UIColor blueColor] setStroke];
-            [[UIBezierPath bezierPathWithArcCenter:characterPoint radius:1 startAngle:0 endAngle:2*M_PI clockwise:YES] stroke];
+            //Calculate character drawing point.
+            CGPoint characterPoint = CGPointMake(radius * cos(angle) + self.circleCenterPoint.x, radius * sin(angle) + self.circleCenterPoint.y);
+            
+            //Strings are always drawn from top left. Calculate the right pos to draw it on bottom center.
+            CGPoint stringPoint = CGPointMake(characterPoint.x -stringSize.width/2 , characterPoint.y - stringSize.height);
+            
+            //Save the current context and do the character rotation magic.
+            CGContextSaveGState(context);
+            CGContextTranslateCTM(context, characterPoint.x, characterPoint.y);
+            CGAffineTransform textTransform = CGAffineTransformMakeRotation(angle + M_PI_2);
+            CGContextConcatCTM(context, textTransform);
+            CGContextTranslateCTM(context, -characterPoint.x, -characterPoint.y);
+            
+            //Draw the character
+            [currentCharacter drawAtPoint:stringPoint withAttributes:self.textAttributes];
+            
+            //If we need some visual debugging, draw the visuals.
+            if (VISUAL_DEBUGGING) {
+                //Show Character BoundingBox
+                [[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5] setStroke];
+                [[UIBezierPath bezierPathWithRect:CGRectMake(stringPoint.x, stringPoint.y, stringSize.width, stringSize.height)] stroke];
+                
+                //Show character point
+                [[UIColor blueColor] setStroke];
+                [[UIBezierPath bezierPathWithArcCenter:characterPoint radius:1 startAngle:0 endAngle:2*M_PI clockwise:YES] stroke];
+            }
+            
+            //Restore context to make sure the rotation is only applied to this character.
+            CGContextRestoreGState(context);
+            
+            //Add the other half of the character size to the character position.
+            characterPosition += stringSize.width / 2;
+            
+            //store the currentCharacter to use in the next run for kerning calculation.
+            lastCharacter = currentCharacter;
         }
-        
-        //Restore context to make sure the rotation is only applied to this character.
-        CGContextRestoreGState(context);
-        
-        //Add the other half of the character size to the character position.
-        characterPosition += stringSize.width / 2;
-        
-        //store the currentCharacter to use in the next run for kerning calculation.
-        lastCharacter = currentCharacter;
     }
     
     //If we need some visual debugging, draw the circle.
