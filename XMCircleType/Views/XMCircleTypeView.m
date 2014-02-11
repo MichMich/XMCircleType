@@ -11,26 +11,50 @@
 @interface XMCircleTypeView ()
 
 @property (nonatomic) CGPoint circleCenterPoint;
+@property (strong,nonatomic) NSMutableDictionary *kerningCacheDictionary;
 
 @end
 
 @implementation XMCircleTypeView
 
-#define VISUAL_DEBUGGING NO
+#pragma mark - Subclassing
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)layoutSubviews
 {
     self.circleCenterPoint = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     [self setNeedsDisplay];
-}
-
-- (float) kerningForCharacter:(NSString *)currentCharacter afterCharacter:(NSString *)previousCharacter
-{
-    float totalSize = [[NSString stringWithFormat:@"%@%@", previousCharacter, currentCharacter] sizeWithAttributes:self.textAttributes].width;
-    float currentCharacterSize = [currentCharacter sizeWithAttributes:self.textAttributes].width;
-    float previousCharacterSize = [previousCharacter sizeWithAttributes:self.textAttributes].width;
-    
-    return (currentCharacterSize + previousCharacterSize) - totalSize;
 }
 
 - (void)drawRect:(CGRect)rect
@@ -96,7 +120,7 @@
         [currentCharacter drawAtPoint:stringPoint withAttributes:self.textAttributes];
         
         //If we need some visual debugging, draw the visuals.
-        if (VISUAL_DEBUGGING) {
+        if (self.visualDebug) {
             //Show Character BoundingBox
             [[UIColor colorWithRed:1 green:0 blue:0 alpha:0.5] setStroke];
             [[UIBezierPath bezierPathWithRect:CGRectMake(stringPoint.x, stringPoint.y, stringSize.width, stringSize.height)] stroke];
@@ -120,7 +144,7 @@
     }
     
     //If we need some visual debugging, draw the circle.
-    if (VISUAL_DEBUGGING) {
+    if (self.visualDebug) {
         //Show Circle
         [[UIColor greenColor] setStroke];
         [[UIBezierPath bezierPathWithArcCenter:self.circleCenterPoint radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES] stroke];
@@ -134,7 +158,61 @@
     }
 }
 
-#pragma mark Getters & Setters
+#pragma mark - Private Functions
+
+- (void)initialize
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name: UIApplicationDidReceiveMemoryWarningNotification object:nil];
+}
+
+- (void)handleMemoryWarning
+{
+    [self clearKerningCache];
+}
+
+- (float)kerningForCharacter:(NSString *)currentCharacter afterCharacter:(NSString *)previousCharacter
+{
+    //Create a unique cache key
+    NSString *kerningCacheKey = [NSString stringWithFormat:@"%@%@", previousCharacter, currentCharacter];
+    
+    //Look for kerning in the cache dictionairy
+    NSNumber *cachedKerning = [self.kerningCacheDictionary objectForKey:kerningCacheKey];
+    
+    //If kerning is found: return.
+    if (cachedKerning) {
+        return [cachedKerning floatValue];
+    }
+
+    //Otherwise, calculate.
+    float totalSize = [[NSString stringWithFormat:@"%@%@", previousCharacter, currentCharacter] sizeWithAttributes:self.textAttributes].width;
+    float currentCharacterSize = [currentCharacter sizeWithAttributes:self.textAttributes].width;
+    float previousCharacterSize = [previousCharacter sizeWithAttributes:self.textAttributes].width;
+    
+    float kerning = (currentCharacterSize + previousCharacterSize) - totalSize;
+    
+    //Store kerning in cache.
+    [self.kerningCacheDictionary setValue:@(kerning) forKey:kerningCacheKey];
+    
+    //Return kerning.
+    return kerning;
+}
+
+#pragma mark - Public Functions
+
+- (void)clearKerningCache
+{
+    self.kerningCacheDictionary = nil;
+}
+
+#pragma mark - Getters & Setters
+
+-(NSMutableDictionary *)kerningCacheDictionary
+{
+    if (self.disableKerningCache) return nil;
+
+    if (!_kerningCacheDictionary) _kerningCacheDictionary = [NSMutableDictionary new];
+    return _kerningCacheDictionary;
+}
 
 - (void)setText:(NSString *)text
 {
@@ -145,6 +223,9 @@
 - (void)setTextAttributes:(NSDictionary *)textAttributes
 {
     _textAttributes = textAttributes;
+    
+    //since the characteristics of the font changed, we need to fluch the kerning cache.
+    self.kerningCacheDictionary = nil;
     [self setNeedsDisplay];
 }
 
@@ -169,6 +250,12 @@
 - (void)setCharacterSpacing:(float)characterSpacing
 {
     _characterSpacing = characterSpacing;
+    [self setNeedsDisplay];
+}
+
+- (void)setVisualDebug:(BOOL)visualDebug
+{
+    _visualDebug = visualDebug;
     [self setNeedsDisplay];
 }
 

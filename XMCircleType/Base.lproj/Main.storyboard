@@ -19,10 +19,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B0v-dv-kZn" customClass="XMCircleTypeView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.94509810209274292" green="0.97647064924240112" blue="0.98431378602981567" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="EzJ-6y-FMn" firstAttribute="top" secondItem="B0v-dv-kZn" secondAttribute="bottom" id="DMA-yn-mQq"/>
                             <constraint firstAttribute="trailing" secondItem="B0v-dv-kZn" secondAttribute="trailing" id="fJg-As-CkX"/>

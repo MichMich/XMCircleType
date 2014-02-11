@@ -10,12 +10,53 @@
 
 @interface XMCircleTypeView : UIView
 
+/**
+ *  Set the text to display in the XMCircleTypeView
+ */
 @property (strong, nonatomic) NSString *text;
+
+/**
+ *  Set the Text Attributes for the text.
+ *  Refer to the Text Attributes documentation for more info.
+ */
 @property (strong, nonatomic) NSDictionary *textAttributes;
+
+/**
+ *  Align the text left, right or center reletive to the baseAngle.
+ */
 @property (nonatomic) NSTextAlignment textAlignment;
 
+/**
+ *  Set the radius of the circle. 
+ *  When no radius is set, the maximum radius is calculated and used.
+ */
 @property (nonatomic) float radius;
+
+/**
+ *  Set the base angle. See textAlignment property for more information.
+ */
 @property (nonatomic) float baseAngle;
+
+/**
+ *  Adjust the spacing of the characters. 
+ *  1 = default spacing, 0.5 = half spacing, 2 = double spacing, etc ...
+ */
 @property (nonatomic) float characterSpacing;
+
+/**
+ *  Show some visual guidelines.
+ */
+@property (nonatomic) BOOL visualDebug;
+
+/**
+ *  Disable the kerning cache.
+ */
+@property (nonatomic) BOOL disableKerningCache;
+
+/**
+ *  Clear the kerning cache. 
+ *  Note that this is automaticlly done when the app gives a memory warning.
+ */
+- (void)clearKerningCache;
 
 @end
