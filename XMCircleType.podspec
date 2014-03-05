@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.social_media_url = "http://twitter.com/MichMich"
 
   s.platform     = :ios
-  s.source       = { :git => "https://github.com/MichMich/XMCircleType.git", :tag => "1.0" }
+  s.source       = { :git => "https://github.com/MichMich/XMCircleType.git", :tag => "1.0.0" }
   s.source_files  = 'XMCircleType/Views/*.{h,m}'
   s.requires_arc = true
 
