@@ -13,9 +13,18 @@
 <!-- ![](Screenshots/example.png) -->
 <!-- Local -->
 
+## Install
+
+Download the example project and copy the XMCircleTypeView .h & .m, 
+or add the following to your `Podfile` and run `$ pod install`.
+
+``` ruby
+pod 'XMCircleType'
+```
+
 ## Usage
 
-Just add a `XMCircleTypeView` to your view, and set the desired options.
+Just add a `XMCircleTypeView` to your project, and set the desired options.
 Please take a look at the example for more info.
 
 ## Disclaimer
