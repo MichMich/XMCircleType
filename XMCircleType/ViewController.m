@@ -18,17 +18,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.circleView.backgroundColor = [UIColor clearColor];
     
-    self.circleView.text = @"XMCircelView allows you to display a circled text. It will take kerning into account. ";
+    self.circleView.text = @"XMCircleType allows you to display a circled text. It will take kerning into account. ";
     self.circleView.textAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:10]};
     self.circleView.textAlignment = NSTextAlignmentCenter;
     self.circleView.baseAngle = 270 * M_PI / 180;
     self.circleView.characterSpacing = 0.85;
     
-    self.circleView.radius = 100;
+    //self.circleView.radius = 100;
     
-    self.circleView.visualDebug = NO;
-    self.circleView.disableKerningCache = YES;
+    //self.circleView.visualDebug = YES;
+    //self.circleView.disableKerningCache = YES;
 }
 
 @end
