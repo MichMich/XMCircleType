@@ -12,8 +12,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/MichMich/XMCircleType"
   s.screenshots  = "https://raw.github.com/michmich/XMCircleType/master/Screenshots/example.png"
 
-
-  s.license      = 'Apache License, Version 2.0'
+  s.license      = { :type => 'Apache License, Version 2.0', :file => 'LICENSE' }
   s.author             = { "Michael Teeuw" => "michael@xonaymedia.nl" }
   s.social_media_url = "http://twitter.com/MichMich"
 
