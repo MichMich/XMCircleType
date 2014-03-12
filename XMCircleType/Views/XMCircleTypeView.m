@@ -63,11 +63,22 @@
     CGSize stringSize = [self.text sizeWithAttributes:self.textAttributes];
     
     //If the radius not set, calculate the maximum radius.
-    float radius = (self.radius <=0) ? (self.bounds.size.width <= self.bounds.size.height) ? self.bounds.size.width / 2 - stringSize.height: self.bounds.size.height / 2 - stringSize.height : self.radius;
+    float radius = (self.radius <=0) ? [self maximumRadiusWithStringSize:stringSize andVerticalAlignment:self.verticalTextAlignment] : self.radius;
+    
+    //We store both radius and textRadius. Since we might need an
+    //unadjusted radius for visual debugging.
+    float textRadius = radius;
+    
+    //Handle vertical alignment bij adjusting the textRadius;
+    if (self.verticalTextAlignment == XMCircleTypeVerticalAlignInside) {
+        textRadius = textRadius - stringSize.height;
+    } else if (self.verticalTextAlignment == XMCircleTypeVerticalAlignCenter) {
+        textRadius = textRadius - stringSize.height/2;
+    }
     
     //Calculate the angle per charater.
     self.characterSpacing = (self.characterSpacing > 0) ? self.characterSpacing : 1;
-    float circumference = 2 * radius * M_PI;
+    float circumference = 2 * textRadius * M_PI;
     float anglePerPixel = M_PI * 2 / circumference * self.characterSpacing;
     
     //Set initial angle.
@@ -104,7 +115,7 @@
         float angle = characterPosition * anglePerPixel + startAngle;
         
         //Calculate character drawing point.
-        CGPoint characterPoint = CGPointMake(radius * cos(angle) + self.circleCenterPoint.x, radius * sin(angle) + self.circleCenterPoint.y);
+        CGPoint characterPoint = CGPointMake(textRadius * cos(angle) + self.circleCenterPoint.x, textRadius * sin(angle) + self.circleCenterPoint.y);
         
         //Strings are always drawn from top left. Calculate the right pos to draw it on bottom center.
         CGPoint stringPoint = CGPointMake(characterPoint.x -stringSize.width/2 , characterPoint.y - stringSize.height);
@@ -162,6 +173,7 @@
 
 - (void)initialize
 {
+    self.verticalTextAlignment = XMCircleTypeVerticalAlignOutside;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name: UIApplicationDidReceiveMemoryWarningNotification object:nil];
 }
 
@@ -195,6 +207,19 @@
     
     //Return kerning.
     return kerning;
+}
+
+- (float)maximumRadiusWithStringSize:(CGSize)stringSize andVerticalAlignment:(XMCircleTypeVerticalAlignment)verticalTextAlignment;
+{
+    float radius = (self.bounds.size.width <= self.bounds.size.height) ? self.bounds.size.width / 2: self.bounds.size.height / 2;
+    
+    if (verticalTextAlignment == XMCircleTypeVerticalAlignOutside) {
+        radius = radius - stringSize.height;
+    } else if (verticalTextAlignment == XMCircleTypeVerticalAlignCenter) {
+        radius = radius - stringSize.height/2;
+    }
+    
+    return radius;
 }
 
 #pragma mark - Public Functions

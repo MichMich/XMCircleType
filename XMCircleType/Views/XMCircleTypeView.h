@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    XMCircleTypeVerticalAlignOutside,
+    XMCircleTypeVerticalAlignCenter,
+    XMCircleTypeVerticalAlignInside
+} XMCircleTypeVerticalAlignment;
+
+
 @interface XMCircleTypeView : UIView
 
 /**
@@ -25,6 +32,11 @@
  *  Align the text left, right or center reletive to the baseAngle.
  */
 @property (nonatomic) NSTextAlignment textAlignment;
+
+/**
+ *  Align the text inside, outside or centered on the circle.
+ */
+@property (nonatomic) XMCircleTypeVerticalAlignment verticalTextAlignment;
 
 /**
  *  Set the radius of the circle. 
