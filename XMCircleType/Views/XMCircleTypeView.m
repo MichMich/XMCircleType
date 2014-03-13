@@ -229,6 +229,13 @@
     self.kerningCacheDictionary = nil;
 }
 
+- (void)setColor:(UIColor *)color
+{
+    NSMutableDictionary *textAttributes = [self.textAttributes mutableCopy];
+    [textAttributes setValue:color forKey:NSForegroundColorAttributeName];
+    self.textAttributes = [textAttributes copy];
+}
+
 #pragma mark - Getters & Setters
 
 -(NSMutableDictionary *)kerningCacheDictionary

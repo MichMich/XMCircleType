@@ -71,4 +71,10 @@ typedef enum {
  */
 - (void)clearKerningCache;
 
+/**
+ *  Convenience function for quickly changing the textColor
+ *  without the need of creating an NSDictionary *textAttributes
+ */
+- (void) setColor:(UIColor *)color;
+
 @end
