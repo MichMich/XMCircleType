@@ -267,6 +267,12 @@
     [self setNeedsDisplay];
 }
 
+- (void) setVerticalTextAlignment:(XMCircleTypeVerticalAlignment)verticalTextAlignment
+{
+    _verticalTextAlignment = verticalTextAlignment;
+    [self setNeedsDisplay];
+}
+
 -(void)setRadius:(float)radius
 {
     _radius = radius;
