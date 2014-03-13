@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "XMCircleType"
-  s.version      = "1.1.0"
+  s.version      = "1.1.1"
   s.summary      = "A UIView that allows you to display an NSString as a cicular text."
 
   s.description  = <<-DESC
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.social_media_url = "http://twitter.com/MichMich"
 
   s.platform     = :ios
-  s.source       = { :git => "https://github.com/MichMich/XMCircleType.git", :tag => "1.1.0" }
+  s.source       = { :git => "https://github.com/MichMich/XMCircleType.git", :tag => "1.1.1" }
   s.source_files  = 'XMCircleType/Views/*.{h,m}'
   s.requires_arc = true
 
