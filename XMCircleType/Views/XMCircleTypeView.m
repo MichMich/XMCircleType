@@ -187,7 +187,7 @@
     //Create a unique cache key
     NSString *kerningCacheKey = [NSString stringWithFormat:@"%@%@", previousCharacter, currentCharacter];
     
-    //Look for kerning in the cache dictionairy
+    //Look for kerning in the cache dictionary
     NSNumber *cachedKerning = [self.kerningCacheDictionary objectForKey:kerningCacheKey];
     
     //If kerning is found: return.
