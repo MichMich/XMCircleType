@@ -102,7 +102,7 @@
     for (NSInteger charIdx=0; charIdx<self.text.length; charIdx++) {
         
         //Set current character.
-        NSString *currentCharacter = [NSString stringWithFormat:@"%c", [self.text characterAtIndex:charIdx]];
+        NSString *currentCharacter = [self.text substringWithRange:NSMakeRange(charIdx, 1)];
         
         //Set currenct character size & kerning.
         CGSize stringSize = [currentCharacter sizeWithAttributes:self.textAttributes];
